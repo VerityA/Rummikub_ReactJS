@@ -50,6 +50,28 @@ class TileData {
     return allTiles;
   };
 
+  sortTilesByColourThenValue(tiles) {
+    const colours = ["black", "blue", "orange", "red", "wild"];
+
+    const colourArrays = [];
+    colours.forEach((colour) => {
+      const colourTiles = tiles.filter((tile) => tile.colour === colour);
+      colourTiles.sort(function (tile1, tile2) {
+        return tile1.value - tile2.value;
+      });
+      colourArrays.push(colourTiles);
+    });
+
+    const concatColourArray =  colourArrays.reduce(
+      function(firstArray, colourArray) {
+        return firstArray.concat(colourArray);
+      },
+      []
+    );
+
+    return concatColourArray;
+  };
+
   getStartingTiles(tiles) {
     const startingTiles = [];
 
@@ -58,10 +80,10 @@ class TileData {
       startingTiles.push(randomTile);
     };
 
-    return startingTiles;
+    const sortedTiles = this.sortTilesByColourThenValue(startingTiles);
+
+    return sortedTiles;
   };
-
-
 };
 
-export default TileData;
+module.exports = TileData;

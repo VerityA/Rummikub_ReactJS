@@ -6,9 +6,6 @@ const TileTable = (props) => {
     return <Tile className="table-tile" key={index} value={tile.value} image={tile.img} colour={this.colour}/>
   });
 
-
-  console.log(props.tiles);
-
   return(
     <div className="tile-table">
       {tiles}
