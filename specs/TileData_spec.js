@@ -153,4 +153,86 @@ describe('TileData', function() {
 
     assert.deepStrictEqual(result, sortedTiles);
   });
+
+  it('should sort remove tiles from box', function() {
+    const boxTiles = [
+      {colour: "orange", value: 8, img: "./images/orange_8.png"},
+      {colour: "black", value: 10, img: "./images/black_10.png"},
+      {colour: "blue", value: 12, img: "./images/blue_12.png"},
+      {colour: "blue", value: 12, img: "./images/blue_12.png"},
+      {colour: "blue", value: 7, img: "./images/blue_7.png"},
+      {colour: "orange", value: 2, img: "./images/orange_2.png"},
+      {colour: "orange", value: 10, img: "./images/orange_10.png"},
+      {colour: "blue", value: 7, img: "./images/blue_7.png"},
+      {colour: "orange", value: 5, img: "./images/orange_5.png"},
+      {colour: "orange", value: 1, img: "./images/orange_1.png"},
+      {colour: "orange", value: 9, img: "./images/orange_9.png"},
+      {colour: "red", value: 12, img: "./images/red_12.png"},
+      {colour: "red", value: 6, img: "./images/red_6.png"},
+      {colour: "red", value: 2, img: "./images/red_2.png"}
+    ];
+
+    const tileToRemove = {colour: "orange", value: 10, img: "./images/orange_10.png"};
+
+    const tilesRemaining = [
+      {colour: "orange", value: 8, img: "./images/orange_8.png"},
+      {colour: "black", value: 10, img: "./images/black_10.png"},
+      {colour: "blue", value: 12, img: "./images/blue_12.png"},
+      {colour: "blue", value: 12, img: "./images/blue_12.png"},
+      {colour: "blue", value: 7, img: "./images/blue_7.png"},
+      {colour: "orange", value: 2, img: "./images/orange_2.png"},
+      {colour: "blue", value: 7, img: "./images/blue_7.png"},
+      {colour: "orange", value: 5, img: "./images/orange_5.png"},
+      {colour: "orange", value: 1, img: "./images/orange_1.png"},
+      {colour: "orange", value: 9, img: "./images/orange_9.png"},
+      {colour: "red", value: 12, img: "./images/red_12.png"},
+      {colour: "red", value: 6, img: "./images/red_6.png"},
+      {colour: "red", value: 2, img: "./images/red_2.png"}
+    ]
+
+    const result = data.removeTileFromBox(tileToRemove, boxTiles);
+
+    assert.deepStrictEqual(result, tilesRemaining);
+  });
+
+  it('should take 14 tiles from box', function() {
+    const boxTiles = [
+      {colour: "orange", value: 8, img: "./images/orange_8.png"},
+      {colour: "black", value: 10, img: "./images/black_10.png"},
+      {colour: "blue", value: 12, img: "./images/blue_12.png"},
+      {colour: "blue", value: 12, img: "./images/blue_12.png"},
+      {colour: "blue", value: 7, img: "./images/blue_7.png"},
+      {colour: "orange", value: 2, img: "./images/orange_2.png"},
+      {colour: "orange", value: 10, img: "./images/orange_10.png"},
+      {colour: "blue", value: 7, img: "./images/blue_7.png"},
+      {colour: "orange", value: 5, img: "./images/orange_5.png"},
+      {colour: "orange", value: 1, img: "./images/orange_1.png"},
+      {colour: "orange", value: 9, img: "./images/orange_9.png"},
+      {colour: "red", value: 12, img: "./images/red_12.png"},
+      {colour: "red", value: 6, img: "./images/red_6.png"},
+      {colour: "red", value: 2, img: "./images/red_2.png"},
+      {colour: "orange", value: 8, img: "./images/orange_8.png"},
+      {colour: "black", value: 10, img: "./images/black_10.png"},
+      {colour: "blue", value: 12, img: "./images/blue_12.png"},
+      {colour: "blue", value: 12, img: "./images/blue_12.png"},
+      {colour: "blue", value: 7, img: "./images/blue_7.png"},
+      {colour: "orange", value: 2, img: "./images/orange_2.png"},
+      {colour: "orange", value: 10, img: "./images/orange_10.png"},
+      {colour: "blue", value: 7, img: "./images/blue_7.png"},
+      {colour: "orange", value: 5, img: "./images/orange_5.png"},
+      {colour: "orange", value: 1, img: "./images/orange_1.png"},
+      {colour: "orange", value: 9, img: "./images/orange_9.png"},
+      {colour: "red", value: 12, img: "./images/red_12.png"},
+      {colour: "red", value: 6, img: "./images/red_6.png"},
+      {colour: "red", value: 2, img: "./images/red_2.png"}
+    ];
+
+    assert.strictEqual(boxTiles.length, 28);
+    const object = data.getStartingTilesFromBox(boxTiles);
+    const startingTiles = object.startingTiles;
+    const remainingBoxTiles = object.remainingBox;
+    assert.strictEqual(boxTiles.length, 14);
+    assert.strictEqual(startingTiles.length, 14);
+  });
+
 });

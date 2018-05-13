@@ -51,6 +51,7 @@ class TileData {
   };
 
   sortTilesByColourThenValue(tiles) {
+    console.log(tiles);
     const colours = ["black", "blue", "orange", "red", "wild"];
 
     const colourArrays = [];
@@ -72,18 +73,39 @@ class TileData {
     return concatColourArray;
   };
 
-  getStartingTiles(tiles) {
-    const startingTiles = [];
-
-    for (let i =0; i<14; i++) {
-      const randomTile = tiles[Math.floor(Math.random()*tiles.length)];
-      startingTiles.push(randomTile);
-    };
-
-    const sortedTiles = this.sortTilesByColourThenValue(startingTiles);
-
-    return sortedTiles;
+  removeTileFromBox(selectedTile, box) {
+    const indexOfTile = box.findIndex(tile => tile.colour === selectedTile.colour && tile.value === selectedTile.value);
+    box.splice(indexOfTile, 1);
+    return box;
   };
+
+  getRandomTileFromBox(box){
+    const randomTile = box[Math.floor(Math.random()*box.length)];
+    return randomTile;
+  };
+
+  getExtraTileFromBox(box) {
+    const randomTile = this.getRandomTileFromBox(box);
+    box = this.removeTileFromBox(randomTile, box);
+
+    console.log('randomTile: ', randomTile);
+
+    return {"extraTile" : randomTile, "remainingBox" : box};
+};
+
+getStartingTilesFromBox(box) {
+  const startingTiles = [];
+
+  for (let i =0; i<14; i++) {
+    const randomTile = this.getRandomTileFromBox(box);
+    startingTiles.push(randomTile);
+    box = this.removeTileFromBox(randomTile, box);2
+  };
+
+  const sortedTiles = this.sortTilesByColourThenValue(startingTiles);
+
+  return {"startingTiles" : sortedTiles, "remainingBox" : box};
+};
 };
 
 module.exports = TileData;
